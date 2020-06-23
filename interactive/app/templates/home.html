@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% block title %}
+    <title> {{username}}/Home </title>
+{% endblock title %}
+
+{% block content %}
+		<div class="container_profile">
+			<div class="gallery" >
+				<h2 align="left"> Suggestions based on your resume </h2>
+                <h3>Skills that you should develop, In order of their importance in market</h3>
+                <ul>
+                {% for suggestion, weight in S : %}
+                    <div class="column">
+                    <li> <b>{{ suggestion }}</b> </li>
+                    </div>
+                {% endfor %}
+                </ul>
+                <br>
+                <br>
+                <br>
+                <br>
+
+                <h2> Matching Job Postings </h2>
+                <table border = "1">
+                  <tr>
+                    <th>Company Name</th>
+                    <th>Job Location</th>
+                    <th>Link to the posting</th>
+                      <th>Job Title</th>
+                  </tr>
+                  {% for job in MJ %}
+                    <tr>
+                        <td> "{{job[2]|string}}"</td>
+                        <td> "{{job[3]|string}}"</td>
+                        <td>  <a href="{{job[5]}}" target="_blank"> Job Posting </a> </td>
+                        <td> "{{job[1]|string}}" </td>
+                    </tr>
+                  {% endfor %}
+                </table>
+            </div>
+
+			<div id="IOD1">
+                 <div class="row">
+                      <div class="column">
+                        <h2 align='left' style='margin-right:1%'> Data<br>Analytics<br>Counselor</h2>
+                      </div>
+                      <div class="column" style = 'width = 100%'>
+                            <button id = 'reset' type='button' onclick="window.location.href='{{url_for('logout')}}';" style='margin-left: 1300%'>Logout</button>
+                      </div>
+                 </div>
+
+
+				<div id="user">
+					<h2 align='left' style='margin-left:10px'> Hi {{username}}, </h2>
+				</div>
+                <br>
+                <br>
+                <br>
+				<div id="uploadform">
+                    <h3>Want to upload a new resume ?</h3>
+                    <form action= "{{url_for('upload', username = username)}}"  method = 'POST' enctype='multipart/form-data' id = 'form1'>
+                          <br>
+                          Select the resume to upload:
+                          <input type='file' name='file' accept='application/pdf'>
+                    </form>
+                    <br>
+                    <button id = 'submit' type = 'submit' form = 'form1' value = 'submit' style='margin-left:12.5%'>Upload</button>
+                </div>
+			</div>
+		</div>
+{% endblock content %}
